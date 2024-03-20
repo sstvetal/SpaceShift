@@ -1,0 +1,77 @@
+add_executable(${SPACE_SHIFT_GAME_TARGET_NAME}
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/gameFramework/GameApplication.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/gameFramework/GameApplication.cpp
+
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/spaceShip/SpaceShip.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/spaceShip/SpaceShip.cpp
+
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/player/PlayerSpaceShip.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/player/PlayerSpaceShip.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/Shooter.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/Shooter.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/BulletShooter.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/BulletShooter.cpp
+
+      
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/Bullet.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/Bullet.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/gameplay/HealthComponent.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/gameplay/HealthComponent.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/VFX/Explosion.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/VFX/Explosion.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/Enemy/SpaceShipEnemy.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/Enemy/SpaceShipEnemy.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/Enemy/Vanguard.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/Enemy/Vanguard.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/Level/GameLevelOne.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/Level/GameLevelOne.cpp
+
+
+ "include/spaceShip/SpaceShip.h" "src/spaceShip/SpaceShip.cpp" "include/player/PlayerSpaceShip.h" "src/player/PlayerSpaceShip.cpp" "include/weapon/Shooter.h" "include/weapon/BulletShooter.h" "src/weapon/BulletShooter.cpp" "src/weapon/Shooter.cpp" "src/gameplay/HealthComponent.cpp" "include/VFX/Explosion.h" "src/VFX/Explosion.cpp" "include/Enemy/SpaceShipEnemy.h" "src/Enemy/SpaceShipEnemy.cpp" "include/Enemy/Vanguard.h" "src/Enemy/Vanguard.cpp")
+
+target_include_directories(${SPACE_SHIFT_GAME_TARGET_NAME} PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+
+target_link_libraries(${SPACE_SHIFT_GAME_TARGET_NAME} PUBLIC ${SPACE_SHIFT_ENGINE_TARGET_NAME})
+
+
+function(CopyLibDirectoryToTarget LIB_NAME TARGET_NAME)
+    add_custom_command(TARGET ${TARGET_NAME}
+    POST_BUILD
+    COMMAND 
+    ${CMAKE_COMMAND} -E copy_directory
+    $<TARGET_FILE_DIR:${LIB_NAME}>
+    $<TARGET_FILE_DIR:${TARGET_NAME}>
+    )
+endfunction()
+
+CopyLibDirectoryToTarget(${SPACE_SHIFT_ENGINE_TARGET_NAME} ${SPACE_SHIFT_GAME_TARGET_NAME})
+
+set(RESOURCE_FOLDER_NAME "assets")
+set(RESOURCE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${RESOURCE_FOLDER_NAME}")
+
+add_custom_command(
+    TARGET ${SPACE_SHIFT_GAME_TARGET_NAME}
+    POST_BUILD 
+    COMMAND
+    ${CMAKE_COMMAND} -E copy_directory
+    ${RESOURCE_SRC_DIR}
+    $<TARGET_FILE_DIR:${SPACE_SHIFT_GAME_TARGET_NAME}>/${RESOURCE_FOLDER_NAME}
+)
+
+configure_file(
+    "config.h.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/config.h" ESCAPE_QUOTES
+
+)
