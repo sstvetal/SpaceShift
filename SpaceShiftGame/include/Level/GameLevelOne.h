@@ -12,7 +12,8 @@ namespace ss
 	private:
 		virtual void BeginPlay() override;
 		weak<PlayerSpaceShip> testPlayerSpaceShip;
-		void TimerCallBack_Test();
+
 		TimerHandle timerHandle_Test;
+		virtual void InitGameStages() override;
 	};
 }

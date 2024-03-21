@@ -1,12 +1,12 @@
 #include "Level/GameLevelOne.h"
 #include "Enemy/Vanguard.h"
+#include "Enemy/VanguardStage.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
 #include "framework/AssetManager.h"
 #include "framework/TimerManager.h"
+#include "gameplay/GameStage.h"
 #include "player/PlayerSpaceShip.h"
-
-
 
 namespace ss
 {
@@ -17,20 +17,16 @@ namespace ss
 		testPlayerSpaceShip.lock()->SetActorLocation(sf::Vector2f(300.f, 490.f));
 		testPlayerSpaceShip.lock()->SetActorRotation(-90.f);
 
-		weak<Vanguard> testSpaceShip = SpawnActor<Vanguard>();
-		testSpaceShip.lock()->SetActorLocation(sf::Vector2f{100.f, 50.f});
-
 	}
 
 
 	void GameLevelOne::BeginPlay()
 	{
-		timerHandle_Test = TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelOne::TimerCallBack_Test, 2, true);
+
 	}
 
-	void GameLevelOne::TimerCallBack_Test()
+	void GameLevelOne::InitGameStages()
 	{
-		LOG("Callback called!");
-		TimerManager::Get().ClearTimer(timerHandle_Test);
+		AddStage(shared<VanguardStage>{new VanguardStage{this}});
 	}
 }

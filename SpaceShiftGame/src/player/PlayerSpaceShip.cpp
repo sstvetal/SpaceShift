@@ -9,7 +9,7 @@ namespace ss
 		:SpaceShip{owningWorld, path},
 		mMoveInput{},
 		mSpeed{200.f},
-		mShooter{new BulletShooter{this, 0.1f}}
+		mShooter{new BulletShooter{this, 0.1f, {50.f, 0.f}} }
 	{
 		SetTeamID(1);
 	}

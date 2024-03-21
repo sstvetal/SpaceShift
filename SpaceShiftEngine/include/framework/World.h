@@ -9,6 +9,8 @@ namespace ss
 {
 	class Actor;
 	class Application;
+	class GameStage;
+
 	class World : public Object
 	{
 	public:
@@ -25,9 +27,10 @@ namespace ss
 
 		sf::Vector2u GetWindowSize() const;
 		void CleanCycle();
+		void AddStage(const shared<GameStage>& newStage);
 
 	private:
-		virtual void BeginPlay();
+ 		virtual void BeginPlay();
 		virtual void Tick(float deltaTime);
 		Application* mOwningApp;
 		bool mBeganPlay;
@@ -36,6 +39,13 @@ namespace ss
 
 
 		List<shared<Actor>> mPendingActors;
+
+
+		List<shared<GameStage>> mGameStages;
+		int mCurrentStageIndex;
+		virtual void InitGameStages();
+		virtual void AllGameStageFinished();
+		void NextGameStage();
 	};
 
 

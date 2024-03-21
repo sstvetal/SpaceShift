@@ -39,6 +39,10 @@ add_library(${SPACE_SHIFT_ENGINE_TARGET_NAME} STATIC
       ${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Core.cpp
 
 
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/gameplay/GameStage.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/gameplay/GameStage.cpp
+
+
       ${CMAKE_CURRENT_SOURCE_DIR}/include/EntryPoint.h
       ${CMAKE_CURRENT_SOURCE_DIR}/src/EntryPoint.cpp
      "include/framework/Delegate.h" "src/framework/Delegate.cpp" "include/VFX/Particle.h" "src/VFX/Particle.cpp" "include/framework/TimerManager.h" "src/framework/TimerManager.cpp")
