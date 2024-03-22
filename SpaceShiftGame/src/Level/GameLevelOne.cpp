@@ -1,11 +1,13 @@
 #include "Level/GameLevelOne.h"
 #include "Enemy/Vanguard.h"
 #include "Enemy/VanguardStage.h"
+#include "Enemy/TwinBladeStage.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
 #include "framework/AssetManager.h"
 #include "framework/TimerManager.h"
 #include "gameplay/GameStage.h"
+#include "gameplay/WaitStage.h"
 #include "player/PlayerSpaceShip.h"
 
 namespace ss
@@ -27,6 +29,10 @@ namespace ss
 
 	void GameLevelOne::InitGameStages()
 	{
+		AddStage(shared<WaitStage>{new WaitStage{this, 5.f}});
 		AddStage(shared<VanguardStage>{new VanguardStage{this}});
+
+		AddStage(shared<WaitStage>{new WaitStage{this, 5.f}});
+		AddStage(shared<TwinBladeStage>{new TwinBladeStage{this}});
 	}
 }

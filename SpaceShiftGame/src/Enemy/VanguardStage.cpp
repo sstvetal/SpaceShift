@@ -13,10 +13,10 @@ namespace ss
 		mLeftSpawnLoc{0.0f,0.0f},
 		mRightSpawnLoc{0.0f,0.0f},
 		mSpawnLoc{0.0f,0.0f},
-		mRowsToSpawn{4},
+		mRowsToSpawn{2},
 		mRawSpawnCount{0},
 		mCurrentRawVanguardCount{0},
-		mVanguardsPerRaw{5}
+		mVanguardsPerRaw{3}
 	{
 
 	}

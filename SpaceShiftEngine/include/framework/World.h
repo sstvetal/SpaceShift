@@ -42,10 +42,14 @@ namespace ss
 
 
 		List<shared<GameStage>> mGameStages;
+
+		List<shared<GameStage>>::iterator mCurrentStage;
+
 		int mCurrentStageIndex;
 		virtual void InitGameStages();
 		virtual void AllGameStageFinished();
 		void NextGameStage();
+		void StartStages();
 	};
 
 
