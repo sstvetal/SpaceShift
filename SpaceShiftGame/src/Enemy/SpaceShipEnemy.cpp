@@ -12,7 +12,7 @@ namespace ss
 	void EnemySpaceShip::Tick(float deltaTime)
 	{
 		SpaceShip::Tick(deltaTime);
-		if(IsActorOutOfWindowBounds(GetActorGlobalBounds().width))
+		if(IsActorOutOfWindowBounds(GetActorGlobalBounds().width * 2.f))
 		{
 			Destroy();
 		}
