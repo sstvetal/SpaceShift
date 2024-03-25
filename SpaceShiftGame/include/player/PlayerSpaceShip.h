@@ -2,9 +2,10 @@
 
 #include "spaceShip/SpaceShip.h"
 
+
 namespace ss
 {
-	class BulletShooter;
+	class Shooter;
 	class PlayerSpaceShip : public SpaceShip
 	{
 	public:
@@ -23,6 +24,6 @@ namespace ss
 		sf::Vector2f mMoveInput;
 		float mSpeed;
 
-		unique<BulletShooter> mShooter;
+		unique<Shooter> mShooter;
 	};
 }

@@ -12,6 +12,7 @@ namespace ss
 	class Actor : public Object
 	{
 	public:
+
 		Actor(World* owningWorld, const std::string& texturePath = "");
 		virtual ~Actor();
 		void BeginPlayInternal();
