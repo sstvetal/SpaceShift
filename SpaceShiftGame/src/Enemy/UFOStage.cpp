@@ -8,7 +8,7 @@ namespace ss
 	UFOStage::UFOStage(World* world)
 		:GameStage{world},
 		mSpawnInterval{4.f},
-		mSpawnAmt{10},
+		mSpawnAmt{3},
 		mCurrentSpawnAmt{0},
 		mUFOSpeed{200.f},
 		mMidSpawnLoc{ world->GetWindowSize().x / 2.f, -100.f }

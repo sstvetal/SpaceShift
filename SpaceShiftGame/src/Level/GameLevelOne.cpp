@@ -13,36 +13,55 @@
 #include "gameplay/GameStage.h"
 #include "gameplay/WaitStage.h"
 #include "player/PlayerSpaceShip.h"
+#include "player/PlayerManager.h"
 
 namespace ss
 {
 	GameLevelOne::GameLevelOne(Application* owningApp)
 		:World{owningApp}
 	{
-		testPlayerSpaceShip = SpawnActor<PlayerSpaceShip>();
-		testPlayerSpaceShip.lock()->SetActorLocation(sf::Vector2f(300.f, 490.f));
-		testPlayerSpaceShip.lock()->SetActorRotation(-90.f);
 
 	}
 
 
 	void GameLevelOne::BeginPlay()
 	{
+		Player newPlayer = PlayerManager::Get().CreateNewPlayer();
+		mPlayerSpaceShip = newPlayer.SpawnSpaceShip(this);
+		mPlayerSpaceShip.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceShipDestroyed);
+	}
+
+	void GameLevelOne::PlayerSpaceShipDestroyed(Actor* destroyedPlayerSpaceShip)
+	{
+		mPlayerSpaceShip = PlayerManager::Get().GetPlayer()->SpawnSpaceShip(this);
+		if(!mPlayerSpaceShip.expired())
+		{
+			mPlayerSpaceShip.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceShipDestroyed);
+		}
+		else
+		{
+			GameOver();
+		}
 	}
 
 	void GameLevelOne::InitGameStages()
 	{
-		AddStage(shared<UFOStage>{new UFOStage{ this }});
-
-
+	
 		AddStage(shared<VanguardStage>{new VanguardStage{this}});
-
-		
 
 		AddStage(shared<WaitStage>{new WaitStage{this, 5.f}});
 		AddStage(shared<TwinBladeStage>{new TwinBladeStage{this}});
 
 		AddStage(shared<WaitStage>{new WaitStage{this, 5.f}});
 		AddStage(shared<HexagonStage>{new HexagonStage{this}});
+
+
+		AddStage(shared<HexagonStage>{new HexagonStage{this}});
+
+	}
+
+	void GameLevelOne::GameOver()
+	{
+		LOG("Game Over!  ==========================================");
 	}
 }

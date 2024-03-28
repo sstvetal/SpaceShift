@@ -80,7 +80,13 @@ namespace ss
 	{
 		Explosion* exp = new Explosion();
 		exp->SpawnExplosion(GetWorld(), GetActorLocation());
+		Blew();
 		Destroy();
 		delete exp;
+	}
+
+	void SpaceShip::Blew()
+	{
+
 	}
 }

@@ -11,9 +11,11 @@ namespace ss
 		GameLevelOne(Application* owningApp);
 	private:
 		virtual void BeginPlay() override;
-		weak<PlayerSpaceShip> testPlayerSpaceShip;
+		weak<PlayerSpaceShip> mPlayerSpaceShip;
+		void PlayerSpaceShipDestroyed(Actor* destroyedPlayerSpaceShip);
 
 		TimerHandle timerHandle_Test;
 		virtual void InitGameStages() override;
+		void GameOver();
 	};
 }
