@@ -11,6 +11,7 @@ namespace ss
 		mSpawnAmt{3},
 		mCurrentSpawnAmt{0},
 		mUFOSpeed{200.f},
+		mSpawnTimer{},
 		mMidSpawnLoc{ world->GetWindowSize().x / 2.f, -100.f }
 	{
 	}

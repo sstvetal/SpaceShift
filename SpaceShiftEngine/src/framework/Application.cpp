@@ -11,7 +11,7 @@ namespace ss
 		:mWindow{ sf::VideoMode(windowWidth,windowHeight), title, style},
 		mTargetFrameRate{60.f}, 
 		mTickClock{},
-		currentWorld{nullptr},
+		mCurrentWorld{nullptr},
 		mCleanCycleClock{},
 		mCleanCycleInterval{2.f}
 	{
@@ -31,6 +31,10 @@ namespace ss
 				{
 					mWindow.close();
 				}
+				else
+				{
+					DispatchEvent(windowEvent);
+				}
 			}
 			float frameDeltaTime = mTickClock.restart().asSeconds();
 			accumulatedTime += frameDeltaTime;
@@ -49,13 +53,22 @@ namespace ss
 		return mWindow.getSize();
 	}
 
+	bool Application::DispatchEvent(const sf::Event& event)
+	{
+		if(mCurrentWorld)
+		{
+			return mCurrentWorld->DispatchEvent(event);
+		}
+		return false;
+	}
+
 	void Application::TickInternal(float deltaTime)
 	{
 		Tick(deltaTime);
 
-		if(currentWorld)
+		if(mCurrentWorld)
 		{
-			currentWorld->TickInternal(deltaTime);
+			mCurrentWorld->TickInternal(deltaTime);
 		}
 
 		TimerManager::Get().UpdateTimer(deltaTime);
@@ -67,9 +80,9 @@ namespace ss
 		{
 			mCleanCycleClock.restart();
 			AssetManager::Get().CleanCycle();
-			if (currentWorld)
+			if (mCurrentWorld)
 			{
-				currentWorld->CleanCycle();
+				mCurrentWorld->CleanCycle();
 			}
 		}
 	}
@@ -86,9 +99,9 @@ namespace ss
 
 	void Application::Render()
 	{
-		if (currentWorld)
+		if (mCurrentWorld)
 		{
-			currentWorld->Render(mWindow);
+			mCurrentWorld->Render(mWindow);
 		}
 	}
 

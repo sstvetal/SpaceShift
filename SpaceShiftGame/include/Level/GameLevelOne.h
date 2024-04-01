@@ -5,6 +5,7 @@
 namespace ss
 {
 	class PlayerSpaceShip;
+	class GameplayHUD;
 	class GameLevelOne : public World
 	{
 	public:
@@ -12,6 +13,7 @@ namespace ss
 	private:
 		virtual void BeginPlay() override;
 		weak<PlayerSpaceShip> mPlayerSpaceShip;
+		weak<GameplayHUD> mGameplayHUD;
 		void PlayerSpaceShipDestroyed(Actor* destroyedPlayerSpaceShip);
 
 		TimerHandle timerHandle_Test;

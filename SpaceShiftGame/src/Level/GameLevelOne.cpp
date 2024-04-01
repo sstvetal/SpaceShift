@@ -14,6 +14,7 @@
 #include "gameplay/WaitStage.h"
 #include "player/PlayerSpaceShip.h"
 #include "player/PlayerManager.h"
+#include "widgets/GameplayHUD.h"
 
 namespace ss
 {
@@ -29,6 +30,7 @@ namespace ss
 		Player newPlayer = PlayerManager::Get().CreateNewPlayer();
 		mPlayerSpaceShip = newPlayer.SpawnSpaceShip(this);
 		mPlayerSpaceShip.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceShipDestroyed);
+		mGameplayHUD = SpawnHUD<GameplayHUD>();
 	}
 
 	void GameLevelOne::PlayerSpaceShipDestroyed(Actor* destroyedPlayerSpaceShip)
@@ -46,7 +48,8 @@ namespace ss
 
 	void GameLevelOne::InitGameStages()
 	{
-	
+		AddStage(shared<UFOStage>{new UFOStage{this}});
+
 		AddStage(shared<VanguardStage>{new VanguardStage{this}});
 
 		AddStage(shared<WaitStage>{new WaitStage{this, 5.f}});

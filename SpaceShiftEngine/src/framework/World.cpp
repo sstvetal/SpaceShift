@@ -3,6 +3,7 @@
 #include "framework/Actor.h"
 #include "framework/Application.h"
 #include "gameplay/GameStage.h"
+#include "widgets/HUD.h"
 
 namespace ss
 {
@@ -49,6 +50,14 @@ namespace ss
 		}
 
 		Tick(deltaTime);
+
+		if(mHUD)
+		{
+			if(!mHUD->HasInit())
+				mHUD->NativeInit(mOwningApp->GetWindow());
+			mHUD->Tick(deltaTime);
+			
+		}
 	}
 
 	void World::Render(sf::RenderWindow& window)
@@ -57,6 +66,17 @@ namespace ss
 		{
 			actor->Render(window);
 		}
+
+		RenderHUD(window);
+	}
+
+	bool World::DispatchEvent(const sf::Event& event)
+	{
+		if(mHUD)
+		{
+			return mHUD->HandleInit(event);
+		}
+		return false;
 	}
 
 	World::~World()
@@ -99,6 +119,17 @@ namespace ss
 	{
 
 	}
+
+	void World::RenderHUD(sf::RenderWindow& window)
+	{
+
+		if(mHUD)
+		{
+			mHUD->Draw(window);
+		}
+
+	}
+
 
 	void World::InitGameStages()
 	{

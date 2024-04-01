@@ -47,9 +47,26 @@ add_library(${SPACE_SHIFT_ENGINE_TARGET_NAME} STATIC
       ${CMAKE_CURRENT_SOURCE_DIR}/src/gameplay/WaitStage.cpp
 
 
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/widgets/HUD.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/HUD.cpp
+
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/widgets/Widgets.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/Widgets.cpp
+
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/widgets/TextWidget.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/TextWidget.cpp
+
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/include/widgets/ValueGuage.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/ValueGuage.cpp
+
+
       ${CMAKE_CURRENT_SOURCE_DIR}/include/EntryPoint.h
       ${CMAKE_CURRENT_SOURCE_DIR}/src/EntryPoint.cpp
-     "include/framework/Delegate.h" "src/framework/Delegate.cpp" "include/VFX/Particle.h" "src/VFX/Particle.cpp" "include/framework/TimerManager.h" "src/framework/TimerManager.cpp" "src/gameplay/WaitStage.cpp")
+
+     "include/framework/Delegate.h" "src/framework/Delegate.cpp" "include/VFX/Particle.h" "src/VFX/Particle.cpp" "include/framework/TimerManager.h" "src/framework/TimerManager.cpp" "src/gameplay/WaitStage.cpp" "include/widgets/HUD.h")
 
 
 
