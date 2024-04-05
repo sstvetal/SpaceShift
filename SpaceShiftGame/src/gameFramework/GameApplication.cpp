@@ -1,11 +1,8 @@
 #include "gameFramework/GameApplication.h"
 #include "Level/GameLevelOne.h"
+#include "Level/MainMenuLevel.h"
 #include "framework/AssetManager.h"
 #include "config.h"
-
-
-//#define DEG_TO_RAD 0.0174533f // 180 / pi // -----------------------
-
 
 ss::Application* GetApplication()
 {
@@ -18,6 +15,6 @@ namespace ss
 		: Application{ 600, 980, "Spase Shift", sf::Style::Titlebar | sf::Style::Close }
 	{
 		AssetManager::Get().SetAssetRootDirectory(GetResourceDir());
-		weak<GameLevelOne> newWorld = LoadWorld<GameLevelOne>();
+		weak<MainMenuLevel> newWorld = LoadWorld<MainMenuLevel>();
 	}
 }

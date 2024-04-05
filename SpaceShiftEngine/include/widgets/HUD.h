@@ -11,7 +11,7 @@ namespace ss
 		virtual void Draw(sf::RenderWindow& windowRef) = 0;
 		void NativeInit(const sf::RenderWindow& windowRef);
 		bool HasInit() { return mAlredyInit; }
-		virtual bool HandleInit(const sf::Event& event);
+		virtual bool HandleEvent(const sf::Event& event);
 		virtual void Tick(float delataTime);
 	protected:
 		HUD();

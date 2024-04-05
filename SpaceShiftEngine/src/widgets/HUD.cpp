@@ -11,7 +11,7 @@ namespace ss
 		}
 	}
 
-	bool HUD::HandleInit(const sf::Event& event)
+	bool HUD::HandleEvent(const sf::Event& event)
 	{
 		return false;
 	}

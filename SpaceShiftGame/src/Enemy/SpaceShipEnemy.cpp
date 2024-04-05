@@ -1,12 +1,15 @@
 #include "Enemy/SpaceShipEnemy.h"
 #include "framework/MathUtility.h"
+#include "player/PlayerManager.h"
 
 namespace ss 
 {
-	EnemySpaceShip::EnemySpaceShip(World* owningWorld, const std::string& texturePath, float collisionDamage, const List<RewardFactoryFunc> rewards)
+	EnemySpaceShip::EnemySpaceShip(World* owningWorld, const std::string& texturePath, float collisionDamage, float rewardSpawnWeight, const List<RewardFactoryFunc> rewards)
 	    :SpaceShip{owningWorld, texturePath},
 		mCollisionDamage{collisionDamage},
-		mRewardFactories{rewards}
+		mRewardFactories{rewards},
+		mScoreAwardAmt{10},
+		mRewardSpawnWeight{rewardSpawnWeight}
 	{
 		SetTeamID(2);
 	}
@@ -20,10 +23,18 @@ namespace ss
 		}
 	}
 
+	void EnemySpaceShip::SetScoreAwardAmt(unsigned int amt)
+	{
+		mScoreAwardAmt = amt;
+	}
+
 	void EnemySpaceShip::SpawnReward()
 	{
+
 		if (mRewardFactories.size() == 0) return;
 
+		if (mRewardSpawnWeight < RandomRange(0, 1))
+			return;
 
 		int pick = (int)RandomRange(0, mRewardFactories.size());
 		if(pick >= 0 && pick < mRewardFactories.size())
@@ -45,5 +56,10 @@ namespace ss
 	void EnemySpaceShip::Blew()
 	{
 		SpawnReward();
+		Player* player = PlayerManager::Get().GetPlayer();
+		if(player)
+		{
+			player->AddScore(mScoreAwardAmt);
+		}
 	}
 }

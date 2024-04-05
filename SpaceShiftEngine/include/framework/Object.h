@@ -17,8 +17,13 @@ namespace ss
 		weak<Object> GetWeakRef();
 		weak<const Object> GetWeakRef() const;
 		Delegate<Object*> onDestroy;
+		unsigned int GetUniqueID() const { return mUniqueID; }
 
 	private:
 		bool mIsPendingDestroy;
+		unsigned int mUniqueID;
+
+		static unsigned int mUniqueIDCounter;
+		static unsigned int GetNextAvalibleID();
 	};
 }

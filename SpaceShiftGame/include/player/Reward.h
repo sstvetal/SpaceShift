@@ -24,11 +24,13 @@ namespace ss
 	weak<Reward> CreateHealthReward(World* world);
 	weak<Reward> CreateThreeWayShooterReward(World* world);
 	weak<Reward> CreateFrontalWiperReward(World* world);
+	weak<Reward> CreateLifeReward(World* world);
 
 	weak<Reward> CreateReward(World* world, const std::string texturePath, RewardFunc rewardFunc);
 
 	void RewardHealth(PlayerSpaceShip* player);
 	void RewardThreeWayShooter(PlayerSpaceShip* player);
 	void RewardFrontalWiper(PlayerSpaceShip* player);
+	void RewardLife(PlayerSpaceShip* player);
 
 }

@@ -3,8 +3,10 @@
 
 namespace ss
 {
+	unsigned int Object::mUniqueIDCounter = 0;
 	Object::Object()
-		:mIsPendingDestroy{false}
+		:mIsPendingDestroy{false},
+		mUniqueID{GetNextAvalibleID()}
 	{
 	}
 
@@ -27,5 +29,10 @@ namespace ss
 	weak<const Object> Object::GetWeakRef() const
 	{
 		return weak_from_this();
+	}
+
+	unsigned int Object::GetNextAvalibleID()
+	{
+		return mUniqueIDCounter++;
 	}
 }

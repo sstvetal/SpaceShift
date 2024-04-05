@@ -22,6 +22,7 @@ namespace ss
 		void AddScore(unsigned int amt);
 		int GetScore() const { return mScore; }
 
+		Delegate<int> onAmontLifeChanged;
 		Delegate<int> onLifeChange;
 		Delegate<int> onScoreChange;
 		Delegate<> onLifeExhausted;

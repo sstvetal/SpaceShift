@@ -26,6 +26,8 @@ namespace ss
 			mHealth = mMaxHealth;
 		}
 
+		onHealthChanged.Broadcast(amt, mHealth, mMaxHealth);
+
 		if (amt < 0)
 		{
 			TakenDamage(-amt);
@@ -34,8 +36,6 @@ namespace ss
 				HealthEmpty();
 			}
 		}
-		
-		onHealthChanged.Broadcast(amt, mHealth, mMaxHealth);
 	}
 
 	void HealthComponent::TakenDamage(float amt)
@@ -47,4 +47,5 @@ namespace ss
 	{
 		onHealthEmpty.Broadcast();
 	}
+
 }

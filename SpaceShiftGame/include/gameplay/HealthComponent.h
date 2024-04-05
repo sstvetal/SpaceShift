@@ -19,7 +19,6 @@ namespace ss
 
 		void TakenDamage(float amt);
 		void HealthEmpty();
-		void HealthRegen(float amt);
 		float mHealth;
 		float mMaxHealth;
 	};

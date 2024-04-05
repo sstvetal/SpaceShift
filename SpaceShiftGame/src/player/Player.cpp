@@ -26,6 +26,7 @@ namespace ss
 		}
 		else
 		{
+			mCurrentPlayerSpaceShip = weak<PlayerSpaceShip>{};
 			onLifeExhausted.Broadcast();
 		}
 		return weak<PlayerSpaceShip>{};
@@ -44,7 +45,7 @@ namespace ss
 	{
 		if(amt > 0)
 		{
-			mScore = amt;
+			mScore += amt;
 			onScoreChange.Broadcast(mScore);
 		}
 	}
