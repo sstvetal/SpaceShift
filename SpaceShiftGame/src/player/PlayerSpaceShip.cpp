@@ -11,7 +11,12 @@ namespace ss
 		:SpaceShip{ owningWorld, path },
 		mMoveInput{},
 		mSpeed{ 200.f },
-		mShooter{ new BulletShooter{this, 0.1f, {50.f, 0.f}} }
+		mShooter{ new BulletShooter{this, 0.1f, {50.f, 0.f}} },
+		mInvincibleTime{2.f},
+		mInvincible{true},
+		mInvincibleFlashInterval{0.5f},
+		mInvincibleFlashTimer{0.f},
+		mInvincibleFlashDir{1}
 	{
 		SetTeamID(1);
 	}
@@ -21,6 +26,7 @@ namespace ss
 		SpaceShip::Tick(deltaTime);
 		HandleInput();
 		ConsumeInput(deltaTime);
+		UpdateInvincible(deltaTime);
 	}
 
 	void PlayerSpaceShip::Shoot()
@@ -40,6 +46,20 @@ namespace ss
 		}
 
 		mShooter = std::move(newShooter);
+	}
+
+	void PlayerSpaceShip::ApplayDamage(float amt)
+	{
+		if(!mInvincible)
+		{
+			SpaceShip::ApplayDamage(amt);
+		}
+	}
+
+	void PlayerSpaceShip::BeginPlay()
+	{
+		SpaceShip::BeginPlay();
+		TimerManager::Get().SetTimer(GetWeakRef(), &PlayerSpaceShip::StopInvincible, mInvincibleTime);
 	}
 
 	void PlayerSpaceShip::HandleInput()
@@ -108,5 +128,29 @@ namespace ss
 		SetVelocity(mMoveInput * mSpeed);
 		mMoveInput.x = mMoveInput.y = 0.f;
 	}
+
+
+	void PlayerSpaceShip::StopInvincible()
+	{
+		GetSprite().setColor({ 255,255,255,255 });
+		mInvincible = false;
+	}
+
+	void PlayerSpaceShip::UpdateInvincible(float deltaTime)
+	{
+		if (!mInvincible) 
+		{
+			return;
+		}
+		
+		mInvincibleFlashTimer += deltaTime * mInvincibleFlashDir;
+		if(mInvincibleFlashTimer < 0 || mInvincibleFlashTimer > mInvincibleFlashInterval)
+		{
+			mInvincibleFlashDir *= -1;
+		}
+
+		GetSprite().setColor(LerpColor({ 255, 255,255, 40 }, { 255,255,255,200 }, mInvincibleFlashTimer/ mInvincibleFlashInterval));
+	}
+
 }
 

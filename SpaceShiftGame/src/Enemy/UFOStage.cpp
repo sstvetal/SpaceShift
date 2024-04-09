@@ -11,7 +11,6 @@ namespace ss
 		mSpawnAmt{3},
 		mCurrentSpawnAmt{0},
 		mUFOSpeed{200.f},
-		mSpawnTimer{},
 		mMidSpawnLoc{ world->GetWindowSize().x / 2.f, -100.f }
 	{
 	}
@@ -59,9 +58,11 @@ namespace ss
 		weak<UFO> newUFO = GetWorld()->SpawnActor<UFO>(spawnVelocity);
 		newUFO.lock()->SetActorLocation(spawnLoc);
 
+		if(++mCurrentSpawnAmt == mSpawnAmt)
+		{
+			FinishStage();
+		}
+
 	}
-
-
-
 
 }

@@ -22,6 +22,7 @@ namespace ss
 		);
 		virtual void Tick(float deltaTime) override;
 		void SetScoreAwardAmt(unsigned int amt);
+		void SetRewardSpawnWeight(float weight);
 	private:
 		void SpawnReward();
 		float mCollisionDamage;

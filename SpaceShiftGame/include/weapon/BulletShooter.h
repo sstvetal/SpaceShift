@@ -8,12 +8,16 @@ namespace ss
 	class BulletShooter : public Shooter
 	{
 	public: 
-		BulletShooter(Actor* owner, float cooldownTime = 1.f, const sf::Vector2f localPositionOffest = {0.f, 0.f},  float localRotationOffset = 0.f, const std::string bulletTexturePath = "SpaceShiftRedux/PNG/Lasers/laserBlue16.png");
+		BulletShooter(Actor* owner,
+			float cooldownTime = 1.f,
+			const sf::Vector2f localPositionOffest = { 0.f, 0.f },
+			float localRotationOffset = 0.f,
+			const std::string bulletTexturePath = "SpaceShiftRedux/PNG/Lasers/laserBlue16.png"
+		);
 		virtual bool IsOnCooldown() const override;
-
 		virtual void IncrementLevel(int amt = 1) override;
-
 		void SetBulletTexturePath(const std::string& bulletTexturePath);
+
 	private:
 		virtual void ShootImpl();
 		sf::Clock mCooldownClock;

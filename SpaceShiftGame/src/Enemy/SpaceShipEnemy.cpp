@@ -28,6 +28,16 @@ namespace ss
 		mScoreAwardAmt = amt;
 	}
 
+	void EnemySpaceShip::SetRewardSpawnWeight(float weight)
+	{
+		if(weight < 0 || weight > 1)
+		{
+			return;
+		}
+
+		mRewardSpawnWeight = weight;
+	}
+
 	void EnemySpaceShip::SpawnReward()
 	{
 

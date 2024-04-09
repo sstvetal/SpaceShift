@@ -11,6 +11,11 @@ namespace ss
 	}
 
 
+	void Shooter::SetCurrentLevel(int level)
+	{
+		mCurrentLevel = level;
+	}
+
 	void Shooter::IncrementLevel(int amt)
 	{
 		if (mCurrentLevel == mMaxLevel) return;
