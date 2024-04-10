@@ -37,4 +37,9 @@ namespace ss
 		}
 		return *playerManager;
 	}
+
+	void PlayerManager::Reset()
+	{
+		mPlayers.clear();
+	}
 }

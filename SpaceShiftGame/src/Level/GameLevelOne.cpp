@@ -9,8 +9,10 @@
 #include "Enemy/HexagonStage.h"
 #include "Enemy/ChaosStage.h"
 #include "Enemy/BossStage.h"
+#include "framework/Application.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
+#include "framework/BackdropActor.h"
 #include "framework/AssetManager.h"
 #include "framework/TimerManager.h"
 #include "gameplay/GameStage.h"
@@ -28,12 +30,21 @@ namespace ss
 	}
 
 
+	void GameLevelOne::AllGameStageFinished()
+	{
+		mGameplayHUD.lock()->GameFinished(true);
+	}
+
 	void GameLevelOne::BeginPlay()
 	{
+		SpawnCosmetics();
+
 		Player& newPlayer = PlayerManager::Get().CreateNewPlayer();
 		mPlayerSpaceShip = newPlayer.SpawnSpaceShip(this);
 		mPlayerSpaceShip.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceShipDestroyed);
 		mGameplayHUD = SpawnHUD<GameplayHUD>();
+		mGameplayHUD.lock()->onQuitButtonCLicked.BindAction(GetWeakRef(), &GameLevelOne::QuitGame);
+		mGameplayHUD.lock()->onRestartButtonCLicked.BindAction(GetWeakRef(), &GameLevelOne::Restart);
 	}
 
 	void GameLevelOne::PlayerSpaceShipDestroyed(Actor* destroyedPlayerSpaceShip)
@@ -51,9 +62,7 @@ namespace ss
 
 	void GameLevelOne::InitGameStages()
 	{
-		AddStage(shared<BossStage>{new BossStage{this}});
-
-		AddStage(shared<WaitStage>{new WaitStage{this, 5.f}});
+		
 		AddStage(shared<VanguardStage>{new VanguardStage{this}});
 
 		AddStage(shared<WaitStage>{new WaitStage{this, 15.f}});
@@ -68,10 +77,29 @@ namespace ss
 		AddStage(shared<WaitStage>{new WaitStage{this, 10.f}});
 		AddStage(shared<ChaosStage>{new ChaosStage{this}});
 
+		AddStage(shared<WaitStage>{new WaitStage{this, 10.f}});
+		AddStage(shared<BossStage>{new BossStage{this}});
+
+	}
+
+	void GameLevelOne::QuitGame()
+	{
+		GetApplication()->QuitApplication();
+	}
+
+	void GameLevelOne::Restart()
+	{
+		PlayerManager::Get().Reset();
+		GetApplication()->LoadWorld<GameLevelOne>();
+	}
+
+	void GameLevelOne::SpawnCosmetics()
+	{
+		auto backdropActor = SpawnActor<BackdropActor>("SpaceShiftRedux/Backgrounds/darkPurple.png");
 	}
 
 	void GameLevelOne::GameOver()
 	{
-		LOG("Game Over!  ==========================================");
+		mGameplayHUD.lock()->GameFinished(false);
 	}
 }

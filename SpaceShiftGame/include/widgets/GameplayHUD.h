@@ -17,6 +17,11 @@ namespace ss
 		virtual void Draw(sf::RenderWindow& windowRef) override;
 		virtual void Tick(float delatTime) override;
 		virtual bool HandleEvent(const sf::Event& event) override;
+
+		void GameFinished(bool playerWon);
+		Delegate<>onRestartButtonCLicked;
+		Delegate<>onQuitButtonCLicked;
+
 	private:
 		virtual void Init(const sf::RenderWindow& windowRef) override;
 		void RefreshHealthBar();
@@ -25,6 +30,10 @@ namespace ss
 		void PlayerLifeCountUpdated(int amt);
 		void PlayerScoreUpdated(int newScore);
 		void PlayerSpaceShipDestroyed(Actor* actor);
+
+		void RestartButtonClicked();
+		void QuitButtonClicked();
+
 		TextWidget mFramerateText;
 		ValueGuage mPlayerHealthBar;
 
@@ -39,5 +48,14 @@ namespace ss
 		float mCriticalThreshold;
 
 		float mWidgetSpaceing;
+
+		TextWidget mWinLoseText;
+		TextWidget mFinalScoreText;
+		Button mRestartButton;
+		Button mQuitButton;
+
+		sf::Vector2u mWindowSize;
+
+
 	};
 }
