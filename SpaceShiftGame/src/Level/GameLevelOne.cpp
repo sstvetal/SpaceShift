@@ -13,6 +13,7 @@
 #include "framework/World.h"
 #include "framework/Actor.h"
 #include "framework/BackdropActor.h"
+#include "framework/BackgroundLayer.h"
 #include "framework/AssetManager.h"
 #include "framework/TimerManager.h"
 #include "gameplay/GameStage.h"
@@ -96,6 +97,58 @@ namespace ss
 	void GameLevelOne::SpawnCosmetics()
 	{
 		auto backdropActor = SpawnActor<BackdropActor>("SpaceShiftRedux/Backgrounds/darkPurple.png");
+		weak<BackroundLayer> planets = SpawnActor<BackroundLayer>();
+		planets.lock()->SetAssets(
+			{
+				"SpaceShiftRedux/PNG/Planets/Planet1.png",
+				"SpaceShiftRedux/PNG/Planets/Planet2.png",
+			    "SpaceShiftRedux/PNG/Planets/Planet3.png",
+			    "SpaceShiftRedux/PNG/Planets/Planet4.png",
+			    "SpaceShiftRedux/PNG/Planets/Planet5.png",
+			    "SpaceShiftRedux/PNG/Planets/Planet6.png",
+			    "SpaceShiftRedux/PNG/Planets/Planet7.png"
+			}
+		);
+		planets.lock()->SetSpriteCount(1);
+		planets.lock()->SetSizes(1, 1.5f);
+		planets.lock()->SetVelocities({0,30}, {0,80.f});
+
+
+
+
+		weak<BackroundLayer> meteors = SpawnActor<BackroundLayer>();
+		meteors.lock()->SetAssets(
+			{
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_big1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_big2.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_big3.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_big4.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_med1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_med3.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_small1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_small2.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_tiny1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorBrown_tiny2.png",
+
+
+
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_big1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_big2.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_big3.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_big4.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_med1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_med2.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_small1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_small2.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_tiny1.png",
+				"SpaceShiftRedux/PNG/Meteors/meteorGrey_tiny2.png"
+
+
+			}
+		);
+
+		meteors.lock()->SetSpriteCount(20);
+		meteors.lock()->SetSizes(.2f, .5f);
 	}
 
 	void GameLevelOne::GameOver()
