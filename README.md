@@ -1,3 +1,5 @@
+![Screen](https://github.com/sstvetal/SpaceShift/blob/master/1719384968546.jpg
+
 To build project (Install CMake before): 
 
 1) download git files to the any of your empty folder
