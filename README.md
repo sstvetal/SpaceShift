@@ -6,8 +6,8 @@ To build project (Install CMake before):
 
 3) write -S . -B build (to call CMake build initialization)
 
-4)(After succses build) write --build build (to generate and create a build  folder)
+4) (After succses build) write --build build (to generate and create a build  folder)
 
 5) find created build folder in the project go to the SpaceShiftGame/Debug/SpaceShiftGame.exe
 
-6)Have fun!
+6) Have fun!
