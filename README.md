@@ -1,4 +1,4 @@
-![Screen](https://github.com/sstvetal/SpaceShift/blob/master/1719384968546.jpg
+![Screen](https://github.com/sstvetal/SpaceShift/blob/master/1719384968546.jpg)
 
 To build project (Install CMake before): 
 
